@@ -43,6 +43,8 @@ int main(__attribute__((unused))int argc, char **av)
 				break;
 			tokens = tokenizer(line);
 			tokens[0] = get_cmd_path(tokens[0]);
+			if (tokens[0] == NULL)
+				continue;
 			if (stat(tokens[0], &st) == 0)
 			{
 				pid = fork();

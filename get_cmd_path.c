@@ -66,5 +66,5 @@ char *get_cmd_path(char *cmd)
     if (stat(cmd, &st) == 0)
         return (cmd);
 
-    return (NULL);
+    return (cmd);
 }
