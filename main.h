@@ -15,4 +15,6 @@ char **tokenizer(char *str);
 void executer(char **args, char **av);
 char *get_cmd_path(char *cmd);
 void _freetokens(char **tokens);
+void _noninteractive(char **);
+void _interactivemode(char **av);
 #endif
