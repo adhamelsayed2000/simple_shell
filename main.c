@@ -8,10 +8,16 @@
  * Return: always 0
  */
 
-int main(__attribute__((unused))int argc, char **av)
+int main(int ac, char **argv)
 {
-	if (!isatty(STDIN_FILENO))
-		_noninteractive(av);
-	else
-		_interactivemode(av);
-	return (0); }
+	char *line = NULL;
+	char **command = NULL;
+	int status;
+	(void) ac;
+
+	while(1){
+		line = read_line();
+		command = tokenizer(line);
+		status = _execute(command, argv);
+	}
+}
