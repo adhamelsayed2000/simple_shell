@@ -1,94 +1,39 @@
 #include "shell.h"
 
-/**
- * tokenizer - splits a string
- * @str: the string to be splitted
- *
- * Return: an array of each word of the string and null in case of failure
- */
-
-char **strtow(char *str, char *d)
+char **tokenizer(char *line)
 {
-	int i, j, k, m, numwords = 0;
-	char **s;
-
-	if (str == NULL || str[0] == 0)
-		return (NULL);
-	if (!d)
-		d = " ";
-	for (i = 0; str[i] != '\0'; i++)
-		if (!is_delim(str[i], d) && (is_delim(str[i + 1], d) || !str[i + 1]))
-			numwords++;
-
-	if (numwords == 0)
-		return (NULL);
-	s = malloc((1 + numwords) * sizeof(char *));
-	if (!s)
-		return (NULL);
-	for (i = 0, j = 0; j < numwords; j++)
+	char *token = NULL, *tmp = NULL;
+	char **command = NULL;
+	int cpt = 0, i = 0;
+	
+	if (!line)
 	{
-		while (is_delim(str[i], d))
-			i++;
-		k = 0;
-		while (!is_delim(str[i + k], d) && str[i + k])
-			k++;
-		s[j] = malloc((k + 1) * sizeof(char));
-		if (!s[j])
-		{
-			for (k = 0; k < j; k++)
-				free(s[k]);
-			free(s);
-			return (NULL);
-		}
-		for (m = 0; m < k; m++)
-			s[j][m] = str[i++];
-		s[j][m] = 0;
+		return(NULL)
 	}
-	s[j] = NULL;
-	return (s);
-}
-
-/**
- * **strtow2 - splits a string into words
- * @str: the input string
- * @d: the delimeter
- * Return: a pointer to an array of strings, or NULL on failure
- */
-char **strtow2(char *str, char d)
-{
-	int i, j, k, m, numwords = 0;
-	char **s;
-
-	if (str == NULL || str[0] == 0)
-		return (NULL);
-	for (i = 0; str[i] != '\0'; i++)
-		if ((str[i] != d && str[i + 1] == d) ||
-		    (str[i] != d && !str[i + 1]) || str[i + 1] == d)
-			numwords++;
-	if (numwords == 0)
-		return (NULL);
-	s = malloc((1 + numwords) * sizeof(char *));
-	if (!s)
-		return (NULL);
-	for (i = 0, j = 0; j < numwords; j++)
+	tmp = _stdup(line);
+	token = strtok(tmp, DELIM);
+	while (token)
 	{
-		while (str[i] == d && str[i] != d)
-			i++;
-		k = 0;
-		while (str[i + k] != d && str[i + k] && str[i + k] != d)
-			k++;
-		s[j] = malloc((k + 1) * sizeof(char));
-		if (!s[j])
-		{
-			for (k = 0; k < j; k++)
-				free(s[k]);
-			free(s);
-			return (NULL);
-		}
-		for (m = 0; m < k; m++)
-			s[j][m] = str[i++];
-		s[j][m] = 0;
+		cpt++;
+		token = strtok(NULL, DELIM);
 	}
-	s[j] = NULL;
-	return (s);
+	free(tmp), tmp = NULL ;
+
+	command = malloc(sizeof(char *) * (cpt + 1));
+	if(!command)
+	{
+		free(line);
+		return (NULL);
+	}
+
+	token = strtok(line, DELIM);
+        while (token)
+        {
+                command[i] = token;
+                token = strtok(NULL, DELIM);
+		i++;
+        }
+	free (line), line = NULL;
+	command [i] = NULL;
+	return (command);
 }

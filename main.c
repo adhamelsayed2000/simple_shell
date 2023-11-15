@@ -25,8 +25,7 @@ int main(int ac, char **argv)
 			}
 			return (status);
 		}
-		free(line);
 		command = tokenizer(line);
-		status = _execute(command, argv);
+		/*status = _execute(command, argv);*/
 	}
 }
