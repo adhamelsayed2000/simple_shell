@@ -14,17 +14,6 @@
 #define MAX_PATH_LENGTH 1024
 #define MAX_INPUT_LENGTH 1024
 
-extern char **environ;
-char **tokenizer(char *str);
-void executer(char **args, char **av);
-char *get_cmd_path(char *cmd);
-void _freetokens(char **tokens);
-void _noninteractive(char **);
-void _interactivemode(char **av);
-void parse_command(char* input, char** args);
-int _myenv(info_t *info);
-char *_getenv(info_t *info, const char *name);
-int _mysetenv(info_t *info);
-int _myunsetenv(info_t *info);
-int populate_env_list(info_t *info);
+char *read_line(void);
+
 #endif

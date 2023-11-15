@@ -11,13 +11,19 @@
 int main(int ac, char **argv)
 {
 	char *line = NULL;
-	char **command = NULL;
-	int status;
+	/*char **command = NULL;*/
+	int status = 0;
 	(void) ac;
+	(void) argv;
 
 	while(1){
 		line = read_line();
-		command = tokenizer(line);
-		status = _execute(command, argv);
+		if (line == NULL)
+		{
+			return (status);
+		}
+		printf("%s\n", line);
+		/*command = tokenizer(line);
+		status = _execute(command, argv);*/
 	}
 }
