@@ -6,26 +6,37 @@
  * @av: argument array
  *
  * Return: always 0
- */
-
-int main(int ac, char **argv)
+ * */
+int main(__attribute__((unused))int argc, char **argv)
 {
-	char *line = NULL, **command = NULL;
-	int status = 0;
-	(void) ac;
-	(void) argv;
+	char *line = NULL, **tokens = NULL;
+	int exit_code = 0;
 
-	while(1){
-		line = read_line();
-		if (line == NULL)
+	while (1)
+	{
+		if (get_input(&line) == -1)
+			break;
+		tokens = tokenizer(line);
+		if (*tokens == NULL)
+			continue;
+		if (_strcmp(tokens[0], "exit") == 0)
 		{
-			if (isatty(STDIN_FILENO))
-			{
-				write(STDOUT_FILENO, "\n", 1);
-			}
-			return (status);
-		}
-		command = tokenizer(line);
-		/*status = _execute(command, argv);*/
-	}
-}
+			exit_code = __exit(tokens, argv, exit_code, line);
+			_freetokens(tokens);
+			continue; }
+		if (_strcmp(tokens[0], "env") == 0)
+		{
+			_printenv();
+			_freetokens(tokens);
+			continue; }
+		if (_strcmp(tokens[0], "cd") == 0)
+		{
+			exit_code = _cd(tokens, argv);
+			_freetokens(tokens);
+			continue; }
+		exit_code = parentchild(tokens, argv);
+		_freetokens(tokens); }
+	if (isatty(STDIN_FILENO))
+		printf("\n");
+	free(line);
+	exit(exit_code); }
