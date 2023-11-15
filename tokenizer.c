@@ -7,7 +7,7 @@
  * Return: an array of each word of the string and null in case of failure
  */
 
-char **sttow(char *str, char *d)
+char **strtow(char *str, char *d)
 {
 	int i, j, k, m, numwords = 0;
 	char **s;
@@ -54,7 +54,7 @@ char **sttow(char *str, char *d)
  * @d: the delimeter
  * Return: a pointer to an array of strings, or NULL on failure
  */
-char **sttow2(char *str, char d)
+char **strtow2(char *str, char d)
 {
 	int i, j, k, m, numwords = 0;
 	char **s;
