@@ -15,5 +15,10 @@
 #define MAX_INPUT_LENGTH 1024
 
 char *read_line(void);
-char **tokenizer(char *str);
+
+char *_stdup(const char *str);
+int _stcmp(char *a1, char *a2);
+int _stlen(char *a);
+char *_stcat(char *dest, char *src);
+char *_stcpy(char *dest, char *src);
 #endif
