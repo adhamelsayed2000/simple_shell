@@ -21,4 +21,6 @@ int _stcmp(char *a1, char *a2);
 int _stlen(char *a);
 char *_stcat(char *dest, char *src);
 char *_stcpy(char *dest, char *src);
+char **sttow(char *, char *);
+char **sttow2(char *, char);
 #endif

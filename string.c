@@ -47,7 +47,7 @@ int _stlen(char *a)
 	int len = 0;
 	while (a[len])
 	{
-		len++
+		len++;
 	}
 	return (len);
 }
@@ -76,5 +76,7 @@ char *_stcpy(char *dest, char *src)
 		dest[i] = src[i];
 		i++;
 	}
-	return (i);
+	 dest[i] = '\0'; // Null-terminate the destination string
+
+    	return dest;	
 }
